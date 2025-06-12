@@ -168,8 +168,8 @@ main[b-vxqp76xmab] {
         overflow-y: auto;
     }
 }
-/* /Pages/BingoCard.razor.rz.scp.css */
-.bingo-grid[b-er3jvurhqj] {
+/* /Pages/Bingo.razor.rz.scp.css */
+.bingo-grid[b-din1qnnnd4] {
     display: grid;
     /* mobile first: always 2 columns on phones */
     grid-template-columns: repeat(2, 1fr);
@@ -177,7 +177,7 @@ main[b-vxqp76xmab] {
     margin-top: 20px;
 }
 
-.bingo-cell[b-er3jvurhqj] {
+.bingo-cell[b-din1qnnnd4] {
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 8px;
@@ -188,7 +188,7 @@ main[b-vxqp76xmab] {
     justify-content: space-between;
 }
 
-    .bingo-cell input[type="text"][b-er3jvurhqj] {
+    .bingo-cell input[type="text"][b-din1qnnnd4] {
         width: 100%;
         box-sizing: border-box;
         border: none;
@@ -196,7 +196,7 @@ main[b-vxqp76xmab] {
         border-radius: 5px;
     }
 
-.question-text[b-er3jvurhqj] {
+.question-text[b-din1qnnnd4] {
     margin-bottom: 8px;
     font-weight: bold;
     color: #0B0B26;
