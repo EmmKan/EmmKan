@@ -1,0 +1,134 @@
+@page "/bingocard"
+@using Blazored.LocalStorage
+@using System.Text.Json
+@inject ILocalStorageService LocalStorage
+
+<h3>Hitta en person som:</h3>
+
+@if (!isGridVisible)
+{
+    <p>Laddar frågor...</p>
+}
+else
+{
+    <div class="bingo-grid">
+        @for (int i = 0; i < Questions.Count; i++)
+        {
+            var currentIndex = i;
+
+            <div class="bingo-cell">
+                <div class="question-text">@Questions[currentIndex]</div>
+                <input type="text"
+                    id="@currentIndex"
+                    value="@Answers[currentIndex]"
+                    @oninput="@((ChangeEventArgs e) => OnAnswerChanged(currentIndex, e.Value?.ToString() ?? string.Empty))"
+                    placeholder="Namn:" />
+            </div>
+        }
+    </div>
+
+    <button class="btn btn-primary mt-3" @onclick="SaveAnswers">Spara svar</button>
+    <button class="btn btn-secondary mt-3 ms-2" @onclick="LoadAnswers">Ladda svar</button>
+}
+
+@code {
+    private List<string> Questions = new List<string>
+    {
+        "Har mer än en katt",
+        "Spelar golf på fritiden",
+        "Bor i en lägenhet",
+        "Gillar bubbel",
+        "Kan vissla med fingrarna",
+        "Varit i mer än 5 länder",
+        "Har en tatuering",
+        "Är född i samma månad som du",
+        "Har sprungit ett lopp",
+        "Älskar att titta på skräckfilm",
+        "Har badat utomhus i år",
+        "Älskar lakrits",
+        "Har bott utomlands",
+        "Alltid packar i sista minuten",
+        "Har träffat en kändis",
+        "Är vänsterhänt",
+        "Kan spela ett instrument",
+        "Har minst två mellannamn",
+        "Kan teckenspråk",
+        "Kan jonglera",
+        "Bor i radhus",
+        "Äger en raggarbil",
+        "Har åkt vasaloppet",
+        "Har motorcykel-körkort",
+        "Har jaktlicens",
+        "Har gjort hole-in-one",
+        "Har åkt trollstigen",
+        "Har ramlat med cykeln",
+        "Har bilat i Europa",
+        "Har sett Eurovision live"
+    };
+
+    private List<string> Answers;
+    private bool isGridVisible = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Answers = Enumerable.Repeat(string.Empty, Questions.Count).ToList();
+
+        await LoadAnswers();
+
+        isGridVisible = true;
+    }
+
+    private void OnAnswerChanged(int index, string value)
+    {
+        Console.WriteLine($"Setting Answers[{index}] = {value}");
+        if (index >= 0 && index < Answers.Count)
+        {
+            Answers[index] = value;
+        }
+    }
+
+    private async Task SaveAnswers()
+    {
+        try
+        {
+            var json = JsonSerializer.Serialize(Answers);
+            await LocalStorage.SetItemAsync("bingo_answers", json);
+            Console.WriteLine("Svar sparade till LocalStorage.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error saving answers: {ex.Message}");
+        }
+    }
+
+    private async Task LoadAnswers()
+    {
+        try
+        {
+            var json = await LocalStorage.GetItemAsync<string>("bingo_answers");
+
+            if (!string.IsNullOrWhiteSpace(json))
+            {
+                var savedAnswers = JsonSerializer.Deserialize<List<string>>(json);
+
+                if (savedAnswers != null && savedAnswers.Count == Questions.Count)
+                {
+                    Answers = savedAnswers;
+                }
+                else
+                {
+                    Answers = Enumerable.Repeat(string.Empty, Questions.Count).ToList();
+                }
+            }
+            else
+            {
+                Answers = Enumerable.Repeat(string.Empty, Questions.Count).ToList();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading answers: {ex.Message}");
+            Answers = Enumerable.Repeat(string.Empty, Questions.Count).ToList();
+        }
+    }
+}
