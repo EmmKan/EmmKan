@@ -13,7 +13,7 @@ jobs:
         dotnet-version: '8.0.x'
     - name: Publish
       run: |
-        dotnet publish BlazorApp/BlazorApp.csproj \
+        dotnet publish BlazorSolution/BlazorApp/BlazorApp.csproj \
           -c Release \
           -o published
     - name: Deploy to GitHub Pages
