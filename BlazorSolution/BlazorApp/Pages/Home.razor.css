@@ -1,0 +1,13 @@
+﻿.welcome-card {
+    background-color: #CFCEFF;
+    border-radius: 10px;
+    border: none;
+}
+
+    .welcome-card h3 {
+        color: #0B0B26;
+    }
+
+    .welcome-card p {
+        color: #0B0B26;
+    }

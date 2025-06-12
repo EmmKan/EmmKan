@@ -3,7 +3,6 @@
 }
 
 .top-row {
-    height: 3.5rem;
     background-color: rgba(0,0,0,0.4);
 }
 
@@ -35,39 +34,48 @@
 
 .nav-item {
     font-size: 0.9rem;
-    padding-bottom: 0.5rem;
 }
-
-    .nav-item:first-of-type {
-        padding-top: 1rem;
-    }
-
-    .nav-item:last-of-type {
-        padding-bottom: 1rem;
-    }
 
     .nav-item ::deep a {
         color: #d7d7d7;
         border-radius: 4px;
-        height: 3rem;
         display: flex;
         align-items: center;
-        line-height: 3rem;
     }
 
-.nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.37);
-    color: white;
-}
+    .nav-item ::deep a.active {
+        background-color: #0B0B26;
+        color: #FEFBE6;
+    }
 
 .nav-item ::deep a:hover {
     background-color: rgba(255,255,255,0.1);
     color: white;
 }
 
+.navbar {
+    background-color: #0B0B26;
+}
+
+.nav-link, .navbar-brand {
+    color: #FEFBE6;
+}
+
+.navbar-toggler-icon {
+    /* same SVG Bootstrap uses, but with your custom stroke color */
+    background-image: url("data:image/svg+xml;charset=utf8,\
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'>\
+      <path stroke='%23FEFBE6' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/>\
+    </svg>");
+}
+
 @media (min-width: 641px) {
     .navbar-toggler {
         display: none;
+    }
+
+    .navitem {
+        margin-left: 1rem;
     }
 
     .collapse {

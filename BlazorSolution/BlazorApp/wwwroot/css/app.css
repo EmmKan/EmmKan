@@ -3,8 +3,12 @@ html, body {
     background-color: #F7F6FF;
 }
 
-h1, h2, h3 {
+h1, h2, h3, p, a {
     color: #0B0B26;
+}
+
+.blue-text {
+    color: #372BC5;
 }
 
 #blazor-error-ui {
@@ -68,75 +72,3 @@ h1, h2, h3 {
     .loading-progress-text:after {
         content: var(--blazor-load-percentage-text, "Loading");
     }
-
-.navbar {
-    background-color: #0B0B26;
-}
-
-.nav-link, .navbar-brand {
-    color: #FEFBE6;
-}
-
-.navbar-toggler-icon {
-    /* same SVG Bootstrap uses, but with your custom stroke color */
-    background-image: url("data:image/svg+xml;charset=utf8,\
-    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'>\
-      <path stroke='%23FEFBE6' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/>\
-    </svg>");
-}
-
-.blue-text {
-    color: #372BC5;
-}
-
-.welcome-card {
-    background-color: #CFCEFF;
-    border-radius: 10px;
-    border: none;
-}
-
-    .welcome-card h3 {
-        color: #0B0B26;
-    }
-
-    .welcome-card p {
-        color: #0B0B26;
-    }
-
-.nav-item a.active {
-    color: #372BC5 !important;
-    background-color: #0B0B26 !important;
-}
-
-.bingo-grid {
-    display: grid;
-    /* mobile first: always 2 columns on phones */
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.bingo-cell {
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: #CFCEFF;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-    .bingo-cell input[type="text"] {
-        width: 100%;
-        box-sizing: border-box;
-        border: none;
-        background-color: #F7F6FF;
-        border-radius: 5px;
-    }
-
-.question-text {
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #0B0B26;
-}
