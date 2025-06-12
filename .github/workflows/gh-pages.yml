@@ -1,22 +1,31 @@
 name: Publish Blazor WASM to GitHub Pages
+
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
-    - name: Publish
-      run: |
-        dotnet publish BlazorSolution/BlazorApp/BlazorApp.csproj \
-          -c Release \
-          -o published
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        publish_dir: ./published/wwwroot
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Publish Blazor WASM
+        run: dotnet publish BlazorSolution/BlazorApp/BlazorApp.csproj -c Release -o published
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          publish_branch: gh-pages
+          publish_dir: published/wwwroot
+          github_token: ${{ secrets.GITHUB_TOKEN }}
