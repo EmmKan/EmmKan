@@ -1,7 +1,8 @@
-@page "/bingocard"
+@page "/bingo"
 @using Blazored.LocalStorage
 @using System.Text.Json
 @inject ILocalStorageService LocalStorage
+@implements IDisposable
 
 <h3>Hitta en person som:</h3>
 
@@ -91,8 +92,7 @@ else
     {
         try
         {
-            var json = JsonSerializer.Serialize(Answers);
-            await LocalStorage.SetItemAsync("bingo_answers", json);
+            await LocalStorage.SetItemAsync("bingo_answers", Answers);
             Console.WriteLine("Svar sparade till LocalStorage.");
         }
         catch (Exception ex)
@@ -105,30 +105,21 @@ else
     {
         try
         {
-            var json = await LocalStorage.GetItemAsync<string>("bingo_answers");
-
-            if (!string.IsNullOrWhiteSpace(json))
-            {
-                var savedAnswers = JsonSerializer.Deserialize<List<string>>(json);
-
-                if (savedAnswers != null && savedAnswers.Count == Questions.Count)
-                {
-                    Answers = savedAnswers;
-                }
-                else
-                {
-                    Answers = Enumerable.Repeat(string.Empty, Questions.Count).ToList();
-                }
-            }
-            else
-            {
-                Answers = Enumerable.Repeat(string.Empty, Questions.Count).ToList();
-            }
+            var saved = await LocalStorage.GetItemAsync<List<string>>("bingo_answers");
+            Answers = (saved != null && saved.Count == Questions.Count)
+                ? saved
+                : Enumerable.Repeat(string.Empty, Questions.Count).ToList();
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error loading answers: {ex.Message}");
             Answers = Enumerable.Repeat(string.Empty, Questions.Count).ToList();
         }
+    }
+
+    public void Dispose()
+    {
+        // fire-and-forget is OK here, Blazor will let it run
+        _ = LocalStorage.SetItemAsync("bingo_answers", Answers);
     }
 }

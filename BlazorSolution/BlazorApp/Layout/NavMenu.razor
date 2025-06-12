@@ -7,10 +7,14 @@
         <div class="@NavMenuCssClass" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="">Hem</NavLink>
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="CloseNavMenu">
+                        Hem
+                    </NavLink>
                 </li>
                 <li class="nav-item">
-                    <NavLink class="nav-link" href="bingocard">Bingo</NavLink>
+                    <NavLink class="nav-link" href="bingo" Match="NavLinkMatch.Prefix" @onclick="CloseNavMenu">
+                        Bingo
+                    </NavLink>
                 </li>
             </ul>
         </div>
@@ -25,5 +29,10 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    private void CloseNavMenu()
+    {
+        collapseNavMenu = true;
     }
 }
