@@ -23,6 +23,11 @@ jobs:
       - name: Publish Blazor WASM
         run: dotnet publish BlazorSolution/BlazorApp/BlazorApp.csproj -c Release -o published
 
+      - name: Disable Jekyll
+        run: |
+          cd published/wwwroot
+          touch .nojekyll
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
