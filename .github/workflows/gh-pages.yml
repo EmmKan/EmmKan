@@ -28,6 +28,11 @@ jobs:
           cd published/wwwroot
           touch .nojekyll
 
+      - name: Add SPA fallback
+        run: |
+          cd published/wwwroot
+          cp index.html 404.html
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
